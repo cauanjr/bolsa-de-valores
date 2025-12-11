@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #101820;
+    color: #fff;
+}
+
+header {
+    background: #1f2a33;
+    padding: 20px;
+    text-align: center;
+}
+
+nav a {
+    margin: 0 15px;
+    color: #4cc9f0;
+    text-decoration: none;
+}
+
+.cotacoes, .conceitos, .grafico {
+    padding: 30px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.input-area {
+    margin: 20px 0;
+    text-align: center;
+}
+
+input, select {
+    padding: 10px;
+    width: 280px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #4cc9f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.resultado {
+    margin-top: 20px;
+    padding: 15px;
+    background: #1f2a33;
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #1f2a33;
+    margin-top: 30px;
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudo da Bolsa de Valores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>📈 Portal de Estudos da Bolsa de Valores</h1>
+        <nav>
+            <a href="#">Início</a>
+            <a href="#cota">Cotações</a>
+            <a href="#conceitos">Conceitos</a>
+            <a href="#grafico">Gráfico</a>
+        </nav>
+    </header>
+
+    <section id="cota" class="cotacoes">
+        <h2>Cotações em Tempo Real</h2>
+
+        <div class="input-area">
+
+            <!-- Campo manual -->
+            <input type="text" id="ticker" placeholder="Digite um ticker (ex.: PETR4, AAPL)">
+
+            <p style="margin:10px 0; text-align:center;">ou escolha abaixo</p>
+
+            <!-- Lista de tickers -->
+            <select id="lista-tickers" onchange="selecionarTicker()">
+                <option value="">Selecione um ticker</option>
+
+                <optgroup label="Brasil (B3)">
+                    <option value="PETR4">PETR4 - Petrobras PN</option>
+                    <option value="VALE3">VALE3 - Vale</option>
+                    <option value="BBAS3">BBAS3 - Banco do Brasil</option>
+                    <option value="ITUB4">ITUB4 - Itaú</option>
+                    <option value="BBDC4">BBDC4 - Bradesco</option>
+                    <option value="MGLU3">MGLU3 - Magazine Luiza</option>
+                    <option value="WEGE3">WEGE3 - WEG</option>
+                    <option value="ABEV3">ABEV3 - Ambev</option>
+                    <option value="GGBR4">GGBR4 - Gerdau</option>
+                    <option value="PRIO3">PRIO3 - PetroRio</option>
+                </optgroup>
+
+                <optgroup label="EUA (NASDAQ/NYSE)">
+                    <option value="AAPL">AAPL - Apple</option>
+                    <option value="MSFT">MSFT - Microsoft</option>
+                    <option value="TSLA">TSLA - Tesla</option>
+                    <option value="AMZN">AMZN - Amazon</option>
+                    <option value="GOOGL">GOOGL - Google</option>
+                    <option value="META">META - Meta/Facebook</option>
+                    <option value="NVDA">NVDA - Nvidia</option>
+                    <option value="NFLX">NFLX - Netflix</option>
+                    <option value="AMD">AMD - AMD</option>
+                    <option value="INTC">INTC - Intel</option>
+                </optgroup>
+            </select>
+
+            <button onclick="buscarCotacao()">Buscar Cotação</button>
+        </div>
+
+        <div id="resultado" class="resultado"></div>
+    </section>
+
+    <section id="conceitos" class="conceitos">
+        <h2>📘 Conceitos Fundamentais</h2>
+        <ul>
+            <li><strong>Ações:</strong> Fração de uma empresa negociada na bolsa.</li>
+            <li><strong>Dividendos:</strong> Parte dos lucros distribuída aos acionistas.</li>
+            <li><strong>Volatilidade:</strong> Variação do preço ao longo do tempo.</li>
+            <li><strong>Liquidez:</strong> Facilidade de comprar/vender um ativo.</li>
+            <li><strong>Índice Bovespa (IBOV):</strong> Principal índice do Brasil.</li>
+        </ul>
+    </section>
+
+    <section id="grafico" class="grafico">
+        <h2>📊 Gráfico de Preço</h2>
+        <canvas id="chart" width="600" height="300"></canvas>
+    </section>
+
+    <footer>
+        <p>Desenvolvido para estudos — API AlphaVantage</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
