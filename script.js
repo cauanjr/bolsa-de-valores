@@ -1,4 +1,16 @@
-// Copia o ticker selecionado para a caixa de texto
+// Ajusta tickers brasileiros para o formato AlphaVantage
+function ajustarTicker(ticker) {
+    const tickersBR = ["3", "4"]; // termina com 3 ou 4 = ação BR
+    const final = ticker.slice(-1);
+
+    if (tickersBR.includes(final)) {
+        return ticker + ".SA"; // AlphaVantage precisa do .SA
+    }
+
+    return ticker;
+}
+
+// Copia do select para o input
 function selecionarTicker() {
     const select = document.getElementById("lista-tickers");
     const inputTicker = document.getElementById("ticker");
@@ -7,17 +19,21 @@ function selecionarTicker() {
 
 // Busca cotação
 async function buscarCotacao() {
-    const ticker = document.getElementById("ticker").value.toUpperCase();
-
-    // 🔑 SUA CHAVE DA API
-    const apiKey = "UFPNM8ZRQN1QTB66";
+    let ticker = document.getElementById("ticker").value.toUpperCase();
 
     if (!ticker) {
         alert("Digite um ticker ou escolha um da lista!");
         return;
     }
 
+    // Ajusta para .SA se for ação BR
+    ticker = ajustarTicker(ticker);
+
+    // Sua API KEY
+    const apiKey = "UFPNM8ZRQN1QTB66";
+
     const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=${apiKey}`;
+
     const res = await fetch(url);
     const data = await res.json();
     const quote = data["Global Quote"];
@@ -40,14 +56,16 @@ async function buscarCotacao() {
     carregarGrafico(ticker, apiKey);
 }
 
-// Carrega gráfico de preços
+// Carrega gráfico
 async function carregarGrafico(ticker, apiKey) {
     const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${apiKey}`;
     const res = await fetch(url);
     const data = await res.json();
 
     const series = data["Time Series (Daily)"];
-    if (!series) return;
+    if (!series) {
+        return;
+    }
 
     const labels = [];
     const valores = [];
@@ -59,16 +77,10 @@ async function carregarGrafico(ticker, apiKey) {
 
     const ctx = document.getElementById("chart").getContext("2d");
 
-    new Chart(ctx, {
+    // Destroi o gráfico anterior para não sobrepor
+    if (window.meuGrafico) {
+        window.meuGrafico.destroy();
+    }
+
+    window.meuGrafico = new Chart(ctx, {
         type: "line",
-        data: {
-            labels: labels.reverse(),
-            datasets: [{
-                label: ticker + " - Fechamento",
-                data: valores.reverse(),
-                borderColor: "#4cc9f0",
-                borderWidth: 2,
-            }]
-        }
-    });
-}
